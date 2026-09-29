@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Streamlining vendor management &amp; escalation workflow — Abhishek Kulkarni</title>
+<meta name="description" content="Rebuilding the vendor management module of SpringVerify's Super Admin Portal: five spreadsheets replaced by one system, 80% faster vendor onboarding.">
+<meta property="og:title" content="Streamlining vendor management &amp; escalation workflow">
+<meta property="og:description" content="Rebuilding the vendor management module of SpringVerify's Super Admin Portal.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="assets/v-overview-v3.png">
+<meta name="theme-color" content="#0c0c0b">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Caveat:wght@400..700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="cs-nav">
+  <a class="back" href="index.html">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6M12 5l-7 7 7 7"></path></svg>
+    AK<span class="lime">.</span>
+  </a>
+  <div class="cs-nav-links">
+    <a href="#context">Context</a><a href="#problem">Problem</a><a href="#needs">Needs</a><a href="#before">Before</a><a href="#approach">Approach</a><a href="#solution">Solution</a><a href="#outcome">Outcome</a><a href="#learnings">Learnings</a>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────── -->
+<header class="cs-hero">
+  <div class="wrap">
+    <div class="cs-kicker"><i></i>Case study · SpringVerify</div>
+    <h1>Streamlining vendor management <span class="lime">&amp; escalation workflow</span></h1>
+    <div class="cs-meta">
+      <div>
+        <h3>Company overview</h3>
+        <p>SpringVerify is a background verification platform by Springworks. Its Super Admin Portal is the internal tool the ops team uses to onboard and manage vendors.</p>
+      </div>
+      <div>
+        <h3>My role</h3>
+        <div class="strong">Product Designer</div>
+        <p>Research with the ops team, flows, interface design, and handoff with 1 designer and 1 QA.</p>
+      </div>
+      <div>
+        <h3>Tools</h3>
+        <div class="strong">Figma and Claude</div>
+        <p>Flows, interface design in Figma; Claude for synthesizing research notes, drafting copy and prototyping.</p>
+      </div>
+    </div>
+    <div class="cs-meta">
+      <div>
+        <h3>Duration</h3>
+        <p>Jan – Mar 2025</p>
+      </div>
+      <div>
+        <h3>Team</h3>
+        <p>1 Designer, 1 Full stack engineer, 1 QA</p>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ── PRODUCT CONTEXT ──────────────────── -->
+<section class="wrap cs-sec" id="context" data-reveal>
+  <div class="eyebrow eyebrow--lime">Product context</div>
+  <h2>A platform built on vendors.</h2>
+  <p class="cs-lede">SpringVerify is a background verification platform by Springworks. It helps HR, compliance, and ops teams automate candidate verification across education, employment, address, identity, and world checks.</p>
+  <div class="cs-rule-two">
+    <div>
+      <div class="k">The internal tool</div>
+      <p>The Super Admin Portal is the internal tool the ops team uses to onboard and manage vendors, configure check types, track escalations, and ensure SLAs are met.</p>
+    </div>
+    <div>
+      <div class="k">This case study</div>
+      <p>This case study focuses on rebuilding its vendor management module.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ──────────────────────────── -->
+<section class="wrap cs-sec" id="problem" data-reveal>
+  <div class="eyebrow eyebrow--lime">What's the issue?</div>
+  <h2>Five sheets, five headaches.</h2>
+  <div class="cs-split" style="margin-top:30px">
+    <p>The Ops team managed vendors across Address, Education, Employment, Identity, and World checks. Each had its own Google Sheet. TAT and pricing lived in two more sheets that had to be re-uploaded any time anything changed.</p>
+    <p><strong style="color:#f4f1ea">Vendor assignment was manual</strong> — compare cities, prices, TAT for every candidate. Escalations lived in chat threads. Nothing was a system. Everything was a tab.</p>
+  </div>
+  <div class="tile-grid tile-grid--4">
+    <div class="tile"><h3>Fragmented data</h3><p>Each check type had its own sheet, leading to inconsistent records and silent drift between tabs.</p></div>
+    <div class="tile"><h3>Duplicate uploads</h3><p>TAT and pricing lived in separate files. A single update meant editing and re-uploading both.</p></div>
+    <div class="tile"><h3>Manual assignment</h3><p>Comparing location, pricing, and TAT for every candidate slowed the entire verification pipeline.</p></div>
+    <div class="tile"><h3>Unstructured escalations</h3><p>Vendor issues lived in chat threads — no unified view, no audit trail, no ownership.</p></div>
+    <div class="tile"><h3>No vendor visibility</h3><p>There was no single view of vendor coverage, workload, or performance. Ops had to piece together information across different sources.</p></div>
+    <div class="tile"><h3>Check-specific ownership</h3><p>Different verification checks could have different vendor contacts, but ownership and contact details weren't structured by check type.</p></div>
+    <div class="tile"><h3>Manual vendor onboarding</h3><p>Adding a new vendor meant collecting details, contacts, TAT, and pricing separately before the vendor could be configured.</p></div>
+    <div class="tile"><h3>Hard to track TAT &amp; pricing</h3><p>Vendor TAT and pricing changed over time, but maintaining and finding the latest information depended on spreadsheets.</p></div>
+  </div>
+</section>
+
+<!-- ── USER NEEDS ───────────────────────── -->
+<section class="wrap cs-sec" id="needs" data-reveal>
+  <div class="eyebrow eyebrow--lime">User needs</div>
+  <div class="cs-split">
+    <h2 style="margin:0">What Ops actually asked for.</h2>
+    <p>I spoke to ten ops team members over two weeks. I watched them onboard vendors, update TAT, and chase escalations on Slack. Five clear needs emerged.</p>
+  </div>
+  <div class="tile-grid tile-grid--3" style="margin-top:48px">
+    <div class="tile tile--plain"><div class="no">01</div><h3>Centralized vendor management</h3><p>A single, unified system covering all check types, eliminating multiple spreadsheets.</p></div>
+    <div class="tile tile--plain"><div class="no">02</div><h3>Faster data updates</h3><p>A quicker way to update TAT and pricing without manually editing and re-uploading separate files.</p></div>
+    <div class="tile tile--plain"><div class="no">03</div><h3>Simplified escalation tracking</h3><p>An integrated escalation flow to log, monitor, and resolve issues inside the platform.</p></div>
+    <div class="tile tile--plain"><div class="no">04</div><h3>Transparent vendor insights</h3><p>Clear visibility into vendor performance, escalation history, and SLAs to drive decisions.</p></div>
+    <div class="tile tile--plain"><div class="no">05</div><h3>Reduced manual effort</h3><p>Automation and prefilled data wherever possible — fewer keystrokes, fewer mistakes.</p></div>
+  </div>
+</section>
+
+<!-- ── BEFORE STATE ─────────────────────── -->
+<section class="wrap cs-sec" id="before" data-reveal>
+  <div class="eyebrow eyebrow--lime">Before state</div>
+  <div class="cs-split">
+    <h2 style="margin:0">How data lived before.</h2>
+    <div>
+      <p>All vendor details — city coverage, pricing, TAT — were maintained manually in Google Sheets. Each check type had its own sheet. Updates were independent. Drift was inevitable.</p>
+      <p>Drawing this out helped the team see the actual cost of "we'll just use a sheet for now."</p>
+    </div>
+  </div>
+  <div class="shot"><img src="assets/v-sheets.png" alt="Vendor evaluation data maintained across Google Sheets" style="opacity:0.92" loading="lazy"></div>
+</section>
+
+<!-- ── APPROACH ─────────────────────────── -->
+<section class="wrap cs-sec" id="approach" data-reveal>
+  <div class="eyebrow eyebrow--lime">The approach</div>
+  <div class="cs-split" style="align-items:end">
+    <h2 style="margin:0">Five focus areas on the way to the fix.</h2>
+    <p>I translated the operational pain points into five areas where the product could reduce manual effort and improve decision-making.</p>
+  </div>
+  <div class="tile-grid tile-grid--5" style="margin-top:48px">
+    <div class="tile tile--focus"><span class="pip">1</span><h3>Vendor onboarding</h3><p>Frictionless portal setups for new verification agents.</p></div>
+    <div class="tile tile--focus"><span class="pip">2</span><h3>City-level data</h3><p>Geographic SLA routing and precision pricing.</p></div>
+    <div class="tile tile--focus"><span class="pip">3</span><h3>Unified escalations</h3><p>Consolidated tickets for rapid issue resolution.</p></div>
+    <div class="tile tile--focus"><span class="pip">4</span><h3>Structured layouts</h3><p>Clean interfaces for seamless back-office ops.</p></div>
+    <div class="tile tile--focus"><span class="pip">5</span><h3>Consistent patterns</h3><p>Standardized elements, reliable workflows.</p></div>
+  </div>
+</section>
+
+<!-- ── DESIGN DECISIONS ─────────────────── -->
+<section class="wrap cs-sec" data-reveal>
+  <div class="eyebrow eyebrow--lime">Design decisions</div>
+  <div class="cs-split">
+    <h2 style="margin:0">Now look at some behind the scenes.</h2>
+    <p>Three important decisions that shaped the product. Every design choice involved a tradeoff. Here are the three that mattered most.</p>
+  </div>
+
+  <div class="iter-tabs" role="tablist">
+    <button class="iter-tab" role="tab" aria-selected="true" aria-controls="iter-1" data-iter="1">Iteration 1</button>
+    <button class="iter-tab" role="tab" aria-selected="false" aria-controls="iter-2" data-iter="2">Iteration 2</button>
+    <button class="iter-tab" role="tab" aria-selected="false" aria-controls="iter-3" data-iter="3">Iteration 3</button>
+  </div>
+
+  <div class="iter-panel" id="iter-1" role="tabpanel">
+    <div class="iter-shot"><img src="assets/iter-1.png" alt="Iteration 1 — check type workspace"></div>
+    <div>
+      <div class="iter-no">Iteration 1</div>
+      <h3>Check type workspace</h3>
+      <div class="iter-list">
+        <div><span class="plus">+</span><span>Closely maps to how verification work is organized</span></div>
+        <div><span class="plus">+</span><span>Easy to understand vendor coverage by check</span></div>
+        <div><span class="plus">+</span><span>Good for check-specific operations</span></div>
+        <div><span class="minus">–</span><span>Doesn't provide enough overall vendor health</span></div>
+        <div><span class="minus">–</span><span>Vendor-level management requires another step</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="iter-panel" id="iter-2" role="tabpanel" hidden>
+    <div class="iter-shot"><img src="assets/iter-2.png" alt="Iteration 2 — vendor directory first" loading="lazy"></div>
+    <div>
+      <div class="iter-no">Iteration 2</div>
+      <h3>Vendor directory first</h3>
+      <div class="iter-list">
+        <div><span class="plus">+</span><span>Search and status filters make it easy to find and manage a specific vendor.</span></div>
+        <div><span class="plus">+</span><span>Works well when the goal is to find, review, or update an individual vendor.</span></div>
+        <div><span class="minus">–</span><span>Doesn't help Ops understand overall vendor health or identify where attention is needed.</span></div>
+        <div><span class="minus">–</span><span>Ops needs to open individual vendors to understand their performance and workload.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="iter-panel" id="iter-3" role="tabpanel" hidden>
+    <div class="iter-shot"><img src="assets/iter-3.png" alt="Iteration 3 — performance dashboard view" loading="lazy"></div>
+    <div>
+      <div class="iter-no">Iteration 3</div>
+      <h3>Performance dashboard view</h3>
+      <div class="iter-list">
+        <div><span class="plus">+</span><span>Gives Ops immediate operational context</span></div>
+        <div><span class="plus">+</span><span>Performance issues are visible upfront</span></div>
+        <div><span class="plus">+</span><span>Natural drill-down</span></div>
+        <div><span class="plus">+</span><span>Supports monitoring before management</span></div>
+        <div><span class="minus">–</span><span>More information on the first screen</span></div>
+        <div><span class="minus">–</span><span>Requires stronger information hierarchy</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict" id="iter-3-verdict" hidden>
+    <div class="verdict-card verdict-card--lime">
+      <div class="h">Chose Option 3: Performance dashboard</div>
+      <p>We chose a performance-led overview because the primary need was to quickly understand what was happening across the vendor ecosystem before drilling into a specific check or vendor.</p>
+    </div>
+    <div class="verdict-card">
+      <div class="h">Rationale</div>
+      <p>Prioritize operational visibility over information density. Surface the signals that help Ops identify where attention is needed, while keeping detailed vendor information one click away.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUTION ─────────────────────────── -->
+<section class="wrap cs-sec" id="solution" data-reveal>
+  <div class="eyebrow eyebrow--lime">Introducing</div>
+  <h2>The Vendor Management module.</h2>
+  <p class="cs-body">After multiple rounds with the Ops team, CTO, and CEO, we aligned on three problems for V1: simplify management, improve visibility, reduce manual effort. Every screen below answers one of them.</p>
+</section>
+
+<div class="wrap sol">
+  <aside class="sol-index">
+    <div class="k">Five screens</div>
+    <ol>
+      <li><span>01</span>A clearer view of vendor operations</li>
+      <li><span>02</span>A focused view of vendors by check type</li>
+      <li><span>03</span>A deeper view of each vendor</li>
+      <li><span>04</span>Escalations, with the context to resolve them</li>
+      <li><span>05</span>A simpler vendor onboarding flow</li>
+    </ol>
+    <p>Three problems for V1: simplify management, improve visibility, reduce manual effort.</p>
+  </aside>
+
+  <div class="screens">
+    <article data-reveal>
+      <div class="screen-head"><span>01</span><h3>A clearer view of vendor operations</h3></div>
+      <div class="screen-shot"><img src="assets/v-overview-v3.png" alt="Vendor operations overview" loading="lazy"></div>
+      <div class="screen-points">
+        <div><h4>One operational view</h4><p>We brought vendor coverage and performance into a single view, replacing fragmented information across workflows.</p></div>
+        <div><h4>From overview to action</h4><p>Ops can move from overall vendor performance to a specific check type and the vendors supporting it.</p></div>
+        <div><h4>A direct path to onboarding</h4><p>New vendors can be added directly from the overview instead of being managed through a separate workflow.</p></div>
+      </div>
+    </article>
+
+    <article data-reveal>
+      <div class="screen-head"><span>02</span><h3>A focused view of vendors by check type</h3></div>
+      <div class="screen-shot"><img src="assets/v-bycheck-v3.png" alt="Vendors by check type" loading="lazy"></div>
+      <div class="screen-points">
+        <div><h4>Find the right vendors</h4><p>Search and filter vendors without scanning the entire list.</p></div>
+        <div><h4>See operational status at a glance</h4><p>Surface vendor status and active workload without opening each vendor.</p></div>
+        <div><h4>Onboard without leaving the workflow</h4><p>Add a new verification partner directly from the vendor overview.</p></div>
+        <div><h4>Escalate issues with context</h4><p>Flag vendor issues with the conversation history, current status, owner, and expected resolution time.</p></div>
+      </div>
+    </article>
+
+    <article data-reveal>
+      <div class="screen-head"><span>03</span><h3>A deeper view of each vendor</h3></div>
+      <div class="screen-shot"><img src="assets/v-detail-v3.png" alt="Vendor detail" loading="lazy"></div>
+      <div class="screen-points">
+        <div><h4>Understand vendor coverage</h4><p>See which verification checks the vendor supports without navigating through separate workflows.</p></div>
+        <div><h4>Review verification activity</h4><p>Review candidate-level verification activity, status, and check details from a single view.</p></div>
+        <div><h4>Keep vendor information actionable</h4><p>Keep key vendor information and operational contacts visible alongside their verification activity.</p></div>
+        <div><h4>Update when things change</h4><p>Update vendor configuration and check-specific details as requirements change.</p></div>
+      </div>
+    </article>
+
+    <article data-reveal>
+      <div class="screen-head"><span>04</span><h3>Escalations, with the context to resolve them</h3></div>
+      <div class="screen-shot"><img src="assets/v-escalate-v3.png" alt="Escalate issue modal" loading="lazy"></div>
+      <div class="screen-points">
+        <div><h4>Capture the issue</h4><p>Record the problem and relevant conversation context.</p></div>
+        <div><h4>Assign ownership</h4><p>Route the escalation to the right team or person.</p></div>
+        <div><h4>Track status</h4><p>Make the current state visible instead of relying on chat updates.</p></div>
+        <div><h4>Set expectations</h4><p>Capture a resolution ETA so follow-ups have a clear reference.</p></div>
+      </div>
+    </article>
+
+    <article data-reveal>
+      <div class="screen-head"><span>05</span><h3>A simpler vendor onboarding flow</h3></div>
+      <div class="screen-shot"><img src="assets/v-onboard-v3.png" alt="Add new vendor flow" loading="lazy"></div>
+      <div class="screen-points">
+        <div><h4>Progressive onboarding</h4><p>Break vendor setup into three focused steps: basic details → check contacts → TAT &amp; pricing, reducing cognitive load while keeping the setup structured.</p></div>
+        <div><h4>Configure ownership by check</h4><p>Each verification type can have its own POC, while allowing Ops to reuse the same contact when responsibilities overlap.</p></div>
+        <div><h4>Bring existing data into the workflow</h4><p>Ops can upload existing TAT and pricing data instead of manually recreating large spreadsheets.</p></div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<!-- ── OUTCOME ──────────────────────────── -->
+<section class="outcome" id="outcome" data-reveal>
+  <div class="outcome-inner">
+    <div class="eyebrow eyebrow--lime">The outcome</div>
+    <h2 style="font-size:clamp(27px,3.4vw,38px); line-height:1.12; font-variation-settings:'wght' 700; margin:16px 0 0">Spreadsheets out. System in.</h2>
+    <p class="cs-body">The redesigned Vendor Management experience empowered the Ops team to manage vendors, pricing, and escalations within a unified system. Manual processes shrank. Data became more consistent. Ops gained a single source of truth for vendor management.</p>
+    <div class="stat-grid">
+      <div class="stat"><b>80%</b><div class="t">Faster vendor onboarding</div><div class="n">25 mins → under 5 mins</div></div>
+      <div class="stat"><b>40%</b><div class="t">Faster escalation resolution</div><div class="n">30 days post-launch vs historical baseline</div></div>
+      <div class="stat"><b>82%</b><div class="t">Reduction in data inconsistencies</div><div class="n">Across sampled vendor records</div></div>
+    </div>
+    <div class="measure">
+      <div class="k">How we measured</div>
+      <div class="measure-grid">
+        <div><h4>80% · Onboarding</h4><p>Time-on-task study with 4 ops users onboarding a new vendor end-to-end. Pre-launch (Sheets) vs. post-launch on the new portal. Average dropped from ~25 mins to ~5.</p></div>
+        <div><h4>40% · Escalation resolution</h4><p>Pulled escalation entries from the new module's audit log over 30 days post-launch and compared average resolution against historical chat-thread tracking. Reported as directional given pre-period data quality.</p></div>
+        <div><h4>82% · Data consistency</h4><p>Sampled 130 vendor records and audited duplicate / inconsistent fields against the old multi-sheet baseline. Inconsistencies dropped from ~94 to ~17 — an ~82% reduction.</p></div>
+      </div>
+      <div class="note">Note: Impact reflects early post-launch observations. Future iterations would benefit from structured funnel tracking and phased cohort comparisons for deeper validation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LEARNINGS ────────────────────────── -->
+<section class="wrap cs-sec" id="learnings" data-reveal>
+  <div class="eyebrow eyebrow--lime">Challenges &amp; learnings</div>
+  <h2>What I'd take into the next internal tool.</h2>
+  <div class="tile-grid tile-grid--2" style="margin-top:44px">
+    <div class="learn-card"><div class="no">01</div><h3>Sheets aren't a system</h3><p>Spreadsheets gave the team flexibility, but fragmented workflows created version drift, duplicate work, and inconsistent data.</p></div>
+    <div class="learn-card"><div class="no">02</div><h3>Internal users want speed, not novelty</h3><p>Ops didn't need a flashy tool. They needed faster access to the right data, fewer manual steps, and confidence that the information was accurate.</p></div>
+    <div class="learn-card"><div class="no">03</div><h3>Sheets aren't a system</h3><p>When workflows depend on manual data entry, structuring the experience around check types, contacts, TAT and pricing reduces ambiguity before it becomes an operational issue.</p></div>
+    <div class="learn-card"><div class="no">04</div><h3>Stakeholder rounds shape the brief</h3><p>Early rounds with the CTO, CEO and Ops team helped clarify what needed to be solved — and prevented us from optimizing the wrong workflow.</p></div>
+  </div>
+</section>
+
+<!-- ── UP NEXT ──────────────────────────── -->
+<section class="upnext" data-reveal>
+  <div class="hand">Up next —</div>
+  <h2>Improving the approval workflow for <span class="lime">unresolved background verification checks</span>.</h2>
+  <a class="pill" href="check-approval.html">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+    Read next case study
+  </a>
+</section>
+
+<!-- ── FOOTER ───────────────────────────── -->
+<footer class="foot" style="margin-top:0">
+  <div class="foot-inner">
+    <div>
+      <img class="avatar" src="assets/avatar.png" alt="Abhishek Kulkarni" width="87" height="87">
+      <div class="name">Abhishek Kulkarni</div>
+      <div class="role">Product designer</div>
+    </div>
+    <div>
+      <h2>Let's Create <span class="lime">Together</span></h2>
+      <p>Have a cool idea? I am always open to new opportunities, collaborations, and creative ideas.</p>
+      <div class="foot-links">
+        <a href="mailto:Kulkarni29.abhishek@gmail.com">Email
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/abhishek-kulkarni-9b721b113/" target="_blank" rel="noreferrer">Linkedin
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+        </a>
+        <a href="https://www.instagram.com/abeeykulkarni" target="_blank" rel="noreferrer">Instagram
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+        </a>
+        <a href="resume.pdf" download>Resume
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19h14"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-rule"></div>
+  <div class="foot-base">
+    <span>© 2026 Abhishek Kulkarni. All rights reserved.</span>
+    <span>Created with <span class="heart">♥</span></span>
+  </div>
+</footer>
+
+<div class="grain"></div>
+
+<script>
+  const tabs = document.querySelectorAll('.iter-tab');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)));
+      ['1', '2', '3'].forEach((n) => {
+        document.getElementById('iter-' + n).hidden = n !== tab.dataset.iter;
+      });
+      document.getElementById('iter-3-verdict').hidden = tab.dataset.iter !== '3';
+    });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>

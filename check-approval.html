@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Improving the approval workflow for unresolved checks — Abhishek Kulkarni</title>
+<meta name="description" content="Giving Company Admins a decision point before unresolved background verification checks reach the final report.">
+<meta property="og:title" content="Improving the approval workflow for unresolved verification checks">
+<meta property="og:description" content="Giving Company Admins a decision point before unresolved checks reach the final report.">
+<meta property="og:type" content="article">
+<meta property="og:image" content="assets/cs-s2.png">
+<meta name="theme-color" content="#0c0c0b">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Caveat:wght@400..700&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="cs-nav">
+  <a class="back" href="index.html">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H6M12 5l-7 7 7 7"></path></svg>
+    AK<span class="lime">.</span>
+  </a>
+  <div class="cs-nav-links">
+    <a href="#context">Context</a><a href="#problem">Problem</a><a href="#research">Research</a><a href="#flow">Existing flow</a><a href="#solution">Solution</a><a href="#design">Design</a><a href="#outcome">Outcome</a>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────── -->
+<header class="cs-hero">
+  <div class="wrap">
+    <div class="cs-kicker"><i></i>Case study · SpringVerify</div>
+    <h1>Improving the approval workflow for <span class="lime">unresolved background verification checks</span></h1>
+    <div class="cs-meta">
+      <div>
+        <h3>Company overview</h3>
+        <p>SpringVerify is a background verification platform by Springworks. Its Super Admin Portal is the internal tool the ops team uses to run and resolve candidate checks.</p>
+      </div>
+      <div>
+        <h3>My role</h3>
+        <div class="strong">Product Designer</div>
+        <p>Research with the ops team, flows, interface design, and handoff with 1 full stack engineer, 1 designer and 1 QA.</p>
+      </div>
+      <div>
+        <h3>Tools</h3>
+        <div class="strong">Figma and Claude</div>
+        <p>Flows, interface design in Figma; Claude for synthesizing research notes, drafting copy and prototyping.</p>
+      </div>
+    </div>
+    <div class="cs-meta">
+      <div>
+        <h3>Duration</h3>
+        <p>Jan – Mar 2025</p>
+      </div>
+      <div>
+        <h3>Team</h3>
+        <p>1 Designer, 1 Full stack engineer, 1 QA</p>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ── CONTEXT ──────────────────────────── -->
+<section class="wrap cs-sec" id="context" data-reveal>
+  <div class="eyebrow eyebrow--lime">About company</div>
+  <p class="cs-lede" style="margin-top:18px; font-size:clamp(20px,2.4vw,26px); line-height:1.35; letter-spacing:-0.02em">SpringVerify is a background verification platform by Springworks, helping HR, compliance, and Operations teams manage candidate verification across education, employment, address, identity, and world checks.</p>
+  <div class="cs-rule-two">
+    <div>
+      <div class="k">Checks covered</div>
+      <p>Education · Employment · Address · Identity · World</p>
+    </div>
+    <div>
+      <div class="k">Where it broke</div>
+      <p>When checks became unresolved or inconclusive, reports could be finalized before Company Admins had a chance to review or provide additional information.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROBLEM ──────────────────────────── -->
+<section class="wrap cs-sec" id="problem" data-reveal>
+  <div class="eyebrow eyebrow--lime">Problem</div>
+  <h2 style="max-width:900px; margin-bottom:48px">Clients had no opportunity to act before unresolved verification checks were finalized.</h2>
+  <div class="trigger-grid">
+    <div class="trigger" style="border-top-color:#c8f04a">
+      <div class="k" style="color:#c8f04a">01 · Trigger</div>
+      <p>When a verification check became UTV, Inconclusive, or Insufficient Closed, the workflow continued toward report finalization without giving the Company Admin an opportunity to review the result, provide additional information, or contest it.</p>
+    </div>
+    <div class="trigger" style="border-top-color:rgba(244,241,234,0.35)">
+      <div class="k" style="color:rgba(244,241,234,0.7)">02 · Knock-on</div>
+      <p>This created a reactive workflow. When new information surfaced after the report was delivered, Operations had to reopen the check, coordinate follow-ups, and run another verification attempt.</p>
+    </div>
+    <div class="trigger" style="border-top-color:#e05a5a">
+      <div class="k" style="color:#e05a5a">03 · Cost</div>
+      <p>The result was avoidable operational effort, delayed resolution, and friction for clients.</p>
+    </div>
+  </div>
+  <div class="pull">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8f04a" stroke-width="1.8" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v5h1"></path></svg>
+    <span>The problem wasn't failed verification. It was the lack of collaboration before the decision became final.</span>
+  </div>
+</section>
+
+<!-- ── RESEARCH ─────────────────────────── -->
+<section class="wrap cs-sec" id="research">
+  <div data-reveal>
+    <div class="eyebrow eyebrow--lime">Research &amp; discovery</div>
+    <h2 style="max-width:980px; font-size:clamp(25px,3vw,34px); line-height:1.2; letter-spacing:-0.025em; margin-bottom:26px">Rather than immediately designing the interface, I focused on understanding how different teams interacted with unresolved verification results.</h2>
+    <p class="cs-body" style="max-width:none; margin:0 0 56px">I reviewed the existing verification workflow, walked through multiple production scenarios with stakeholders, studied competitor behavior, and identified the operational bottlenecks that created unnecessary manual work.</p>
+    <h3 style="font-size:clamp(20px,2.4vw,24px); font-variation-settings:'wght' 700; letter-spacing:-0.02em; margin-bottom:14px">Three users. One broken workflow.</h3>
+    <p class="cs-body" style="max-width:none; margin:0 0 44px">The same unresolved check created a different problem for each role — from configuring the rules, to making the decision, to executing the re-verification.</p>
+  </div>
+
+  <div class="role" data-reveal>
+    <div class="role-name" style="color:#f5cf5f">Super Admin</div>
+    <div class="notes">
+      <div class="note" style="background:#f5cf5f">Re-verification rules had to be configured at the system/package level.</div>
+      <div class="note" style="background:#f5cf5f">TAT and pricing lived in separate files. A single update meant editing and re-uploading both.</div>
+      <div class="note" style="background:#f5cf5f">Comparing location, pricing, and TAT for every candidate slowed the entire verification pipeline.</div>
+      <div class="note" style="background:#f5cf5f">There was no single view of vendor coverage, workload, or performance. Ops had to piece together information across different sources.</div>
+    </div>
+  </div>
+
+  <div class="role" data-reveal>
+    <div class="role-name" style="color:#f8b072">Company Admin</div>
+    <div class="notes">
+      <div class="note" style="background:#f8c184">Unresolved checks could move toward report finalization without client input.</div>
+      <div class="note" style="background:#f8c184">They couldn't easily provide additional information or contest the result before finalization.</div>
+      <div class="note" style="background:#f8c184">By the time they saw the issue, the workflow often required another round of verification.</div>
+      <div class="note" style="background:#f8c184">They were informed about the problem after the decision had effectively been made.</div>
+    </div>
+  </div>
+
+  <div class="role" data-reveal>
+    <div class="role-name" style="color:#a9f5a0">Operations</div>
+    <div class="notes">
+      <div class="note" style="background:#a9f5a0">Ops had to reopen completed checks when new information became available.</div>
+      <div class="note" style="background:#a9f5a0">Re-verification created additional operational work.</div>
+      <div class="note" style="background:#a9f5a0">The workflow could involve follow-ups and manual coordination.</div>
+      <div class="note" style="background:#a9f5a0">Every unresolved check that needed another attempt became operational cleanup.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXISTING WORKFLOW ────────────────── -->
+<section class="flow-band" id="flow">
+  <div class="flow-inner">
+    <div data-reveal>
+      <div class="eyebrow eyebrow--lime">Existing workflow</div>
+      <h2 style="font-size:clamp(25px,3vw,34px); line-height:1.18; letter-spacing:-0.025em; margin:16px 0 44px">One unresolved check sends the whole verification back to the start.</h2>
+    </div>
+    <div class="flow-grid" data-reveal>
+      <div class="flow-step"><div class="n">01</div><div class="l">Operations verifies candidate</div></div>
+      <div class="flow-step" style="border-top-color:#f5a623"><div class="n">02</div><div class="l">Check becomes UTV / Inconclusive</div></div>
+      <div class="flow-step"><div class="n">03</div><div class="l">QC team verifies it</div></div>
+      <div class="flow-step"><div class="n">04</div><div class="l">Report generated</div></div>
+    </div>
+    <div class="loop-bar"><span>Re-verification loop runs again, end to end</span></div>
+    <div class="flow-grid" data-reveal>
+      <div class="flow-step flow-step--dark"><div class="n">08</div><div class="l">Same workflow starts over</div></div>
+      <div class="flow-step flow-step--dark"><div class="n">07</div><div class="l">Operations reopens the closed check</div></div>
+      <div class="flow-step flow-step--dark"><div class="n">06</div><div class="l">Admin requests re-verification</div></div>
+      <div class="flow-step flow-step--dark"><div class="n">05</div><div class="l">Company Admin finally sees the report</div></div>
+    </div>
+    <h3 data-reveal style="font-size:clamp(21px,2.6vw,26px); font-variation-settings:'wght' 700; letter-spacing:-0.02em; margin:56px 0 24px">Why the loop happens</h3>
+    <div class="why-grid" data-reveal>
+      <div class="why"><span class="bar" style="background:#ef5b6b"></span><h4>No client visibility</h4><p>Company Admins couldn't review unresolved checks before reports were generated.</p></div>
+      <div class="why"><span class="bar" style="background:#f5a623"></span><h4>Delayed information</h4><p>Critical documents and details arrived after reports were finalized.</p></div>
+      <div class="why"><span class="bar" style="background:#3887f7"></span><h4>Repeated operational work</h4><p>Operations had to reopen completed checks and restart verification.</p></div>
+      <div class="why"><span class="bar" style="background:#17c49a"></span><h4>Higher operational cost</h4><p>Credit notes and manual interventions increased support effort.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROPOSED DIRECTION ───────────────── -->
+<section class="wrap cs-sec" id="solution">
+  <div data-reveal>
+    <div class="eyebrow eyebrow--lime">Proposed direction</div>
+    <h2 style="max-width:1040px; line-height:1.2; letter-spacing:-0.028em; margin-bottom:34px">Pause verification on unresolved checks and let Company Admins review the result before it reaches the final report.</h2>
+    <div class="pull" style="max-width:1040px; border-radius:0 12px 12px 0; margin-bottom:34px">
+      <span>How might we give Company Admins a meaningful decision point without adding complexity for Super Admins or Operations?</span>
+    </div>
+    <p class="cs-body" style="margin:0 0 28px">The solution consists of four key components:</p>
+  </div>
+  <div class="diagram" data-reveal>
+    <img src="assets/cs-diagram.png" alt="Approval workflow architecture across Super Admin, Operations and Company Admin" loading="lazy">
+  </div>
+  <div class="comp-grid" data-reveal>
+    <div class="comp">
+      <span class="pill-tag" style="background:rgba(56,135,247,0.18); color:#7fb0ff">Set up once</span>
+      <h3>Configuration</h3>
+      <p>Admins set re-verification rules once, per package – which checks can be contested, and by whom.</p>
+    </div>
+    <div class="comp">
+      <span class="pill-tag" style="background:rgba(245,166,35,0.18); color:#f7c069">Visibility before the report</span>
+      <h3>Review queue</h3>
+      <p>Every inconclusive check surfaces in one pending-review list, so nothing waits behind a finished report.</p>
+    </div>
+    <div class="comp">
+      <span class="pill-tag" style="background:rgba(23,196,154,0.18); color:#5fdcb9">Information arrives on time</span>
+      <h3>Review details</h3>
+      <p>Accept the finding, or contest it with supporting documents attached in the same screen.</p>
+    </div>
+    <div class="comp">
+      <span class="pill-tag" style="background:rgba(168,130,247,0.18); color:#c0a4fb">No new bottleneck</span>
+      <h3>Automation</h3>
+      <p>Reminders chase the admin; unanswered reviews auto-close on the SLA so reports never stall.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── DESIGN ───────────────────────────── -->
+<section class="wrap cs-sec" id="design">
+  <div class="design-grid">
+    <div><h2 class="design-title">Design</h2></div>
+    <div class="design-steps">
+
+      <article data-reveal>
+        <div class="ds-head"><span>01.</span><h3>One toggle turns on admin review</h3></div>
+        <p><strong>Super Admins:</strong> Admins set re-verification rules once, per package – which checks can be contested, and by whom. Grade triggers, applicable check types and the auto-close offset sit inside the same form.</p>
+        <div class="ds-shot"><img src="assets/cs-s1.png" alt="One toggle turns on admin review" loading="lazy"></div>
+      </article>
+
+      <article data-reveal>
+        <div class="ds-head"><span>02.</span><h3>One place to manage every review</h3></div>
+        <p><strong>Company admin:</strong> Pending requests can be filtered by verification status, searched by candidate, and sorted by response deadline. This helps Company Admins focus on the most urgent reviews while ensuring no unresolved check is missed.</p>
+        <div class="ds-shot"><img src="assets/cs-s2.png" alt="One place to manage every review" loading="lazy"></div>
+      </article>
+
+      <article data-reveal>
+        <div class="ds-head"><span>03.</span><h3>See unresolved checks in context</h3></div>
+        <p><strong>Check level information:</strong> Unresolved checks are shown directly at the individual verification-check level, making unresolved checks visible in context. Admins can review the available information and take action to accept the result or request re-verification without leaving the check.</p>
+        <div class="ds-shot"><img src="assets/cs-s3.png" alt="Check level information" loading="lazy"></div>
+      </article>
+
+      <article data-reveal>
+        <div class="ds-head"><span>04.</span><h3>Review the full story before deciding</h3></div>
+        <p><strong>Company admin:</strong> See candidate details, verification history, contact attempts, and supporting documents together at the check level. Review the evidence, understand what happened, and decide whether to accept the result or request re-verification.</p>
+        <div class="ds-shot"><img src="assets/cs-s4.png" alt="Candidate details and verification history" loading="lazy"></div>
+      </article>
+
+      <article data-reveal>
+        <div class="ds-head"><span>05.</span><h3>Keeping the check in the loop</h3></div>
+        <p><strong>Company admin:</strong> If a verification result is incomplete or based on outdated information, Company Admins can submit additional details and supporting documents to restart the verification process.</p>
+        <div class="ds-shot"><img src="assets/cs-s5.png" alt="Submitting additional details" loading="lazy"></div>
+      </article>
+
+      <article data-reveal>
+        <div class="ds-head"><span>06.</span><h3>Close the loop with a clear outcome</h3></div>
+        <p><strong>Company admin:</strong> Accepted decisions are recorded directly on the check, showing who made the decision and when. This creates a clear audit trail and prevents Operations from reopening or reprocessing the check unnecessarily.</p>
+        <div class="ds-shot"><img src="assets/cs-s6.png" alt="Recorded decision and audit trail" loading="lazy"></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── OUTCOME ──────────────────────────── -->
+<section class="outcome-lime" id="outcome">
+  <div class="outcome-inner">
+    <div data-reveal>
+      <div class="eyebrow" style="color:rgba(12,12,11,0.62)">Outcome</div>
+      <p class="outcome-lede">The final solution introduced a configurable approval workflow that fits into the existing verification pipeline while giving Company Admins visibility before unresolved checks are finalized.</p>
+      <h3 style="font-size:clamp(22px,2.8vw,28px); font-variation-settings:'wght' 700; letter-spacing:-0.02em; margin-bottom:26px">How the workflow improved</h3>
+    </div>
+    <div class="out-grid" data-reveal>
+      <div class="out"><img src="assets/cs-icon1.png" alt="" loading="lazy"><h4>Early client visibility</h4><p>Reduced manual re-open requests</p></div>
+      <div class="out"><img src="assets/cs-icon2.png" alt="" loading="lazy"><h4>Faster decision making</h4><p>Eliminated unnecessary credit notes</p></div>
+      <div class="out"><img src="assets/cs-icon3.png" alt="" loading="lazy"><h4>Reduced manual effort</h4><p>Created a transparent audit trail</p></div>
+      <div class="out"><img src="assets/cs-icon4.png" alt="" loading="lazy"><h4>Lower operational overhead</h4><p>Supported multiple client settings</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── UP NEXT ──────────────────────────── -->
+<section class="upnext" data-reveal>
+  <div class="hand">Up next —</div>
+  <h2>Streamlining vendor management <span class="lime">&amp; escalation workflow</span>.</h2>
+  <a class="pill" href="vendor-management.html">
+    Read next case study
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+  </a>
+</section>
+
+<!-- ── FOOTER ───────────────────────────── -->
+<footer class="foot" style="margin-top:0">
+  <div class="foot-inner">
+    <div>
+      <img class="avatar" src="assets/avatar.png" alt="Abhishek Kulkarni" width="87" height="87">
+      <div class="name">Abhishek Kulkarni</div>
+      <div class="role">Product designer</div>
+    </div>
+    <div>
+      <h2>Let's Create <span class="lime">Together</span></h2>
+      <p>Have a cool idea? I am always open to new opportunities, collaborations, and creative ideas.</p>
+      <div class="foot-links">
+        <a href="mailto:Kulkarni29.abhishek@gmail.com">Email
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/abhishek-kulkarni-9b721b113/" target="_blank" rel="noreferrer">Linkedin
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+        </a>
+        <a href="https://www.instagram.com/abeeykulkarni" target="_blank" rel="noreferrer">Instagram
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+        </a>
+        <a href="resume.pdf" download>Resume
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19h14"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-rule"></div>
+  <div class="foot-base">
+    <span>© 2026 Abhishek Kulkarni. All rights reserved.</span>
+    <span>Created with <span class="heart">♥</span></span>
+  </div>
+</footer>
+
+<div class="grain"></div>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+  document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>
