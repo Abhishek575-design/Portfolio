@@ -21,6 +21,7 @@
 <header class="wrap">
   <nav class="nav">
     <a class="mark" href="index.html">AK<span class="lime">.</span></a>
+    <button class="burger" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
     <div class="nav-links">
       <a href="index.html" aria-current="page">Home</a>
       <a href="#work">Works</a>
@@ -368,5 +369,17 @@
   }
 </script>
 
+
+<script>
+  (() => {
+    const nav = document.querySelector('.nav, .cs-nav'), btn = nav && nav.querySelector('.burger');
+    if (!btn) return;
+    const set = (open) => { nav.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); document.body.classList.toggle('menu-open', open); };
+    btn.addEventListener('click', () => set(!nav.classList.contains('open')));
+    nav.querySelectorAll('.nav-links a, .cs-nav-links a').forEach((a) => a.addEventListener('click', () => set(false)));
+    addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+    addEventListener('resize', () => { if (innerWidth > 720) set(false); });
+  })();
+</script>
 </body>
 </html>
